@@ -1,0 +1,50 @@
+[
+  {
+    "arm": "k0",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/ablation_s20264101/k0/2bb7a5e8-af39-74f0-dadd-342dad39c99d.wav",
+    "corr_vocal": 0.06075602941426917,
+    "corr_bg": 0.0726744928645489,
+    "nmse_vocal_db": 2.2595935194760286,
+    "nmse_bg_db": 3.9664412349956812,
+    "hf_vocal": 0.0056541475171256825,
+    "hf_bg": 0.006645432664085282,
+    "coverage": 0.6181818181818182,
+    "asr_head": "让这歌陪我走深海，每一句孤独不被偏爱。等下一生把故事延伸开，"
+  },
+  {
+    "arm": "win_1p0",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/window_sweep/win_1p0/2bb7a5e8-af39-74f0-dadd-342dad39c99d.wav",
+    "corr_vocal": 0.09779243228693445,
+    "corr_bg": 0.06689210129358432,
+    "nmse_vocal_db": 1.7622118737681793,
+    "nmse_bg_db": 3.9388006481125575,
+    "hf_vocal": 0.00589729334102737,
+    "hf_bg": 0.00449795486323259,
+    "coverage": 0.9030303030303031,
+    "asr_head": "让这歌走过深海，每一句话都不会被掩埋。我们时间把故事怎样更改"
+  },
+  {
+    "arm": "asr_win1s",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocmask_test/asr_win1s/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.09390499901456968,
+    "corr_bg": 0.06506193004127449,
+    "nmse_vocal_db": 2.459301996695254,
+    "nmse_bg_db": 5.003966622327409,
+    "hf_vocal": 0.005552226311663966,
+    "hf_bg": 0.004811038136839554,
+    "coverage": 0.9030303030303031,
+    "asr_head": "让车开，走过深海，每一句话不会被掩埋。我们时间把故事怎样更改"
+  },
+  {
+    "arm": "stem_f0",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocmask_test/stem_f0/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.3365505980456553,
+    "corr_bg": 0.14911297953847347,
+    "nmse_vocal_db": 0.6936814234611604,
+    "nmse_bg_db": 3.95189888875621,
+    "hf_vocal": 0.006327662382583147,
+    "hf_bg": 0.004346619878065289,
+    "coverage": 0.9515151515151515,
+    "asr_head": "让这颗陪我走过深海，每一句话都会被掩埋。我们时间把故事怎样更"
+  }
+]

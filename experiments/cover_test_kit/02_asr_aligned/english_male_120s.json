@@ -1,0 +1,200 @@
+{
+  "wav": "sources/english_male_120s.wav",
+  "requested_language": "English",
+  "language": "English",
+  "text": "For beautiful, for spacious skies, for amber waves of grain, for purple mountains majesties above the fruited plain, America, America, God shed His grace on thee, and crown thy good with love from sea to shining sea.",
+  "tokens": [
+    {
+      "text": "For",
+      "start": 90.88,
+      "end": 90.88
+    },
+    {
+      "text": "beautiful",
+      "start": 91.44,
+      "end": 91.44
+    },
+    {
+      "text": "for",
+      "start": 102.48,
+      "end": 102.48
+    },
+    {
+      "text": "spacious",
+      "start": 102.537,
+      "end": 102.594
+    },
+    {
+      "text": "skies",
+      "start": 102.651,
+      "end": 102.708
+    },
+    {
+      "text": "for",
+      "start": 102.765,
+      "end": 102.822
+    },
+    {
+      "text": "amber",
+      "start": 102.88,
+      "end": 102.88
+    },
+    {
+      "text": "waves",
+      "start": 102.88,
+      "end": 102.88
+    },
+    {
+      "text": "of",
+      "start": 102.88,
+      "end": 102.88
+    },
+    {
+      "text": "grain",
+      "start": 102.88,
+      "end": 102.88
+    },
+    {
+      "text": "for",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "purple",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "mountains",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "majesties",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "above",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "the",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "fruited",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "plain",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "America",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "America",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "God",
+      "start": 103.2,
+      "end": 103.2
+    },
+    {
+      "text": "shed",
+      "start": 103.28,
+      "end": 103.44
+    },
+    {
+      "text": "His",
+      "start": 103.6,
+      "end": 103.76
+    },
+    {
+      "text": "grace",
+      "start": 103.92,
+      "end": 104.08
+    },
+    {
+      "text": "on",
+      "start": 104.24,
+      "end": 104.4
+    },
+    {
+      "text": "thee",
+      "start": 104.56,
+      "end": 104.72
+    },
+    {
+      "text": "and",
+      "start": 104.88,
+      "end": 104.88
+    },
+    {
+      "text": "crown",
+      "start": 104.88,
+      "end": 104.88
+    },
+    {
+      "text": "thy",
+      "start": 104.88,
+      "end": 104.88
+    },
+    {
+      "text": "good",
+      "start": 105.031,
+      "end": 105.182
+    },
+    {
+      "text": "with",
+      "start": 105.333,
+      "end": 105.484
+    },
+    {
+      "text": "love",
+      "start": 105.635,
+      "end": 105.786
+    },
+    {
+      "text": "from",
+      "start": 105.937,
+      "end": 106.088
+    },
+    {
+      "text": "sea",
+      "start": 106.24,
+      "end": 106.24
+    },
+    {
+      "text": "to",
+      "start": 106.24,
+      "end": 106.24
+    },
+    {
+      "text": "shining",
+      "start": 106.24,
+      "end": 106.8
+    },
+    {
+      "text": "sea",
+      "start": 106.8,
+      "end": 106.8
+    }
+  ],
+  "lines": [
+    {
+      "text": "For beautiful, for spacious skies, for amber waves of grain, for purple mountains majesties above the fruited plain, America, America, God shed His grace on thee, and crown thy good with love from sea to shining sea",
+      "start": 90.88,
+      "end": 106.8
+    }
+  ]
+}

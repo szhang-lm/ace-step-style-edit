@@ -1,0 +1,42 @@
+[
+  {
+    "arm": "mid_k1",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/sweep/mid_k1/2bb7a5e8-af39-74f0-dadd-342dad39c99d.wav",
+    "corr_vocal": 0.36127299622754916,
+    "corr_bg": 0.10131138105684082,
+    "nmse_vocal_db": 0.13919689408527872,
+    "nmse_bg_db": 4.205652616621902,
+    "coverage": 0.9212121212121213,
+    "asr_head": "让这歌陪我走过深海，每一句话都不会被掩埋。我们时间把故事怎样"
+  },
+  {
+    "arm": "mid_k2",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/sweep/mid_k2/2bb7a5e8-af39-74f0-dadd-342dad39c99d.wav",
+    "corr_vocal": 0.6562925367370022,
+    "corr_bg": 0.11718807238651258,
+    "nmse_vocal_db": -2.121195437608114,
+    "nmse_bg_db": 4.5436616372597785,
+    "coverage": 0.9393939393939394,
+    "asr_head": "让这歌陪我走过山海，每一句话都不会被掩埋。无论时间把故事怎样"
+  },
+  {
+    "arm": "soft_k1",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/sweep/soft_k1/2bb7a5e8-af39-74f0-dadd-342dad39c99d.wav",
+    "corr_vocal": 0.36177347693572254,
+    "corr_bg": 0.10860581292154153,
+    "nmse_vocal_db": 0.26341095160694694,
+    "nmse_bg_db": 4.7591714416392925,
+    "coverage": 0.9333333333333333,
+    "asr_head": "让这歌陪我走过深海，每一句话都不会被掩埋。我们时间把故事怎样"
+  },
+  {
+    "arm": "soft_k3",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/sweep/soft_k3/2bb7a5e8-af39-74f0-dadd-342dad39c99d.wav",
+    "corr_vocal": 0.8203695164714453,
+    "corr_bg": 0.14308364782546917,
+    "nmse_vocal_db": -4.745331736985802,
+    "nmse_bg_db": 4.745246577460124,
+    "coverage": 0.9454545454545454,
+    "asr_head": "让这歌陪我走过山海，每一句话都不会被掩埋。无论时间把故事怎样"
+  }
+]

@@ -1,0 +1,409 @@
+{
+  "wav": "sources/english_female_80s.wav",
+  "requested_language": "English",
+  "language": "English",
+  "text": "Oh, say can you see by the dawn's early light What so proudly we hailed at the twilight's last gleaming? Whose broad stripes and bright stars through the perilous fight O'er the ramparts we watched were so gallantly streaming And the rockets' red glare, the bombs bursting in air, Gave proof through the night that our flag was still there. Oh, say does that star-spangled banner yet wave O'er the land of the free and the home of the brave?",
+  "tokens": [
+    {
+      "text": "Oh",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "say",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "can",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "you",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "see",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "by",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "the",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "dawn's",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "early",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "light",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "What",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "so",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "proudly",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "we",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "hailed",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "at",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "the",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "twilight's",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "last",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "gleaming",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "Whose",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "broad",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "stripes",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "and",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "bright",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "stars",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "through",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "the",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "perilous",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "fight",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "O'er",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "the",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "ramparts",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "we",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "watched",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "were",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "so",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "gallantly",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "streaming",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "And",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "the",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "rockets'",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "red",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "glare",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "the",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "bombs",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "bursting",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "in",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "air",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "Gave",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "proof",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "through",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "the",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "night",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "that",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "our",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "flag",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "was",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "still",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "there",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "Oh",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "say",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "does",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "that",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "starspangled",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "banner",
+      "start": 0.0,
+      "end": 0.0
+    },
+    {
+      "text": "yet",
+      "start": 0.0,
+      "end": 42.24
+    },
+    {
+      "text": "wave",
+      "start": 42.24,
+      "end": 42.24
+    },
+    {
+      "text": "O'er",
+      "start": 42.24,
+      "end": 42.24
+    },
+    {
+      "text": "the",
+      "start": 42.24,
+      "end": 42.24
+    },
+    {
+      "text": "land",
+      "start": 42.24,
+      "end": 42.24
+    },
+    {
+      "text": "of",
+      "start": 42.24,
+      "end": 42.24
+    },
+    {
+      "text": "the",
+      "start": 42.24,
+      "end": 42.24
+    },
+    {
+      "text": "free",
+      "start": 42.24,
+      "end": 42.24
+    },
+    {
+      "text": "and",
+      "start": 42.24,
+      "end": 43.12
+    },
+    {
+      "text": "the",
+      "start": 43.2,
+      "end": 43.2
+    },
+    {
+      "text": "home",
+      "start": 43.2,
+      "end": 43.2
+    },
+    {
+      "text": "of",
+      "start": 43.2,
+      "end": 43.2
+    },
+    {
+      "text": "the",
+      "start": 43.2,
+      "end": 43.2
+    },
+    {
+      "text": "brave",
+      "start": 43.2,
+      "end": 43.2
+    }
+  ],
+  "lines": []
+}
