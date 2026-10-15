@@ -35,3 +35,10 @@ cover_test_kit_*.tar.gz
 
 __pycache__/
 .DS_Store
+
+# --- song_gene_and_edit local additions ---
+# ACE-Step-1.5 local clone artifacts (generated audio / test audio)
+ACE-Step-1.5/outputs/
+ACE-Step-1.5/test_audio/
+# uv tool env
+.tools/

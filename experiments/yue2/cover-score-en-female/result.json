@@ -1,0 +1,46 @@
+{
+  "audio": "english_female_80s.wav",
+  "duration_seconds": 80.0,
+  "prompts": [
+    "timestamp",
+    "downbeat_meter",
+    "structure",
+    "key",
+    "chord_full",
+    "melody_full"
+  ],
+  "preset": "default",
+  "melody_only": true,
+  "dtype": "bf16",
+  "window_seconds": 300.0,
+  "overlap_seconds": 200.0,
+  "lookahead_seconds": 100.0,
+  "windows": [
+    {
+      "start": 0.0,
+      "end": 80.0,
+      "accept_start": 0.0,
+      "accept_end": 80.0,
+      "prefix_end": 0.0,
+      "generation_stop": null,
+      "window_index": 0,
+      "prefix_tokens": 0,
+      "tokens": 586,
+      "events": 123,
+      "accepted_events": 123,
+      "elapsed_seconds": 8.203962104395032
+    }
+  ],
+  "elapsed_seconds": 8.719572262838483,
+  "warnings": [],
+  "peak_gpu_mib": 3370.3671875,
+  "melody_notes": 100,
+  "vocal_notes": 100,
+  "instrumental_notes": 0,
+  "events": 123,
+  "abc_measures": 34,
+  "abc_error": null,
+  "diagnostics": [
+    "measure 33: padded final 2/4 span to declared 3/4 with trailing rest"
+  ]
+}

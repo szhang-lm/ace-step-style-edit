@@ -1,0 +1,47 @@
+{
+  "audio": "english_male_120s.wav",
+  "duration_seconds": 120.0,
+  "prompts": [
+    "timestamp",
+    "downbeat_meter",
+    "structure",
+    "key",
+    "chord_full",
+    "melody_full"
+  ],
+  "preset": "default",
+  "melody_only": true,
+  "dtype": "bf16",
+  "window_seconds": 300.0,
+  "overlap_seconds": 200.0,
+  "lookahead_seconds": 100.0,
+  "windows": [
+    {
+      "start": 0.0,
+      "end": 120.0,
+      "accept_start": 0.0,
+      "accept_end": 120.0,
+      "prefix_end": 0.0,
+      "generation_stop": null,
+      "window_index": 0,
+      "prefix_tokens": 0,
+      "tokens": 1045,
+      "events": 264,
+      "accepted_events": 264,
+      "elapsed_seconds": 10.463376052677631
+    }
+  ],
+  "elapsed_seconds": 10.892433933913708,
+  "warnings": [],
+  "peak_gpu_mib": 3370.3671875,
+  "melody_notes": 169,
+  "vocal_notes": 57,
+  "instrumental_notes": 112,
+  "events": 264,
+  "abc_measures": 53,
+  "abc_error": null,
+  "diagnostics": [
+    "measure 52: padded final 3/4 span to declared 4/4 with trailing rest",
+    "measure 0: padded leading 1/8 span to 4/4 with preceding rest"
+  ]
+}
