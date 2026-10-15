@@ -1,0 +1,11 @@
+{
+  "first": "experiments/data/coversongs/covers32k/My_Heart_Will_Go_On/celine_dion+Au_Coer_Du_Stade+11-My_Heart_Will_Go_On.mp3",
+  "second": "experiments/data/coversongs/covers32k/My_Heart_Will_Go_On/new_found_glory+From_the_Screen_to_Your_Stereo+07-My_Heart_Will_Go_On.mp3",
+  "source_clip": "experiments/data/covers80_probe/my_heart_will_go_on/source.wav",
+  "cover_clip": "experiments/data/covers80_probe/my_heart_will_go_on/cover.wav",
+  "duration_seconds": 20.0,
+  "source_start_seconds": 281.072,
+  "cover_start_seconds": 130.544,
+  "pitch_shift_semitones": 11,
+  "mean_chroma_distance": 0.019592126831412315
+}

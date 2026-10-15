@@ -1,0 +1,11 @@
+{
+  "first": "experiments/data/coversongs/covers32k/Enjoy_The_Silence/depeche_mode+Violator+06-Enjoy_The_Silence.mp3",
+  "second": "experiments/data/coversongs/covers32k/Enjoy_The_Silence/tori_amos+Strange_Little_Girls+04-Enjoy_the_Silence.mp3",
+  "source_clip": "experiments/data/covers80_probe/enjoy_the_silence/source.wav",
+  "cover_clip": "experiments/data/covers80_probe/enjoy_the_silence/cover.wav",
+  "duration_seconds": 20.0,
+  "source_start_seconds": 101.872,
+  "cover_start_seconds": 63.984,
+  "pitch_shift_semitones": 0,
+  "mean_chroma_distance": 0.06560907512903214
+}

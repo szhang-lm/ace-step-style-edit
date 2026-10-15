@@ -1,0 +1,37 @@
+{
+  "prompts": {
+    "source_style": "dramatic adult contemporary pop ballad with orchestral arrangement and powerful female vocals",
+    "target_style": "energetic pop punk with distorted electric guitars, fast live drums and youthful male punk vocals"
+  },
+  "rows": [
+    {
+      "name": "source",
+      "path": "experiments/data/covers80_probe/my_heart_will_go_on/source.wav",
+      "style_scores": {
+        "source_style": 0.03246939927339554,
+        "target_style": -0.05191339552402496
+      }
+    },
+    {
+      "name": "real_cover",
+      "path": "experiments/data/covers80_probe/my_heart_will_go_on/cover.wav",
+      "style_scores": {
+        "source_style": 0.338886022567749,
+        "target_style": 0.5994112491607666
+      }
+    },
+    {
+      "name": "generated",
+      "path": "experiments/data/covers80_probe/my_heart_will_go_on/generated_target/e433071c-b4de-c452-3c7e-e82a79a7c73c.wav",
+      "style_scores": {
+        "source_style": -0.0036636991426348686,
+        "target_style": 0.07898937165737152
+      }
+    }
+  ],
+  "audio_similarities": {
+    "source_to_real_cover": 0.20865283906459808,
+    "source_to_generated": 0.34797847270965576,
+    "generated_to_real_cover": 0.3564552664756775
+  }
+}

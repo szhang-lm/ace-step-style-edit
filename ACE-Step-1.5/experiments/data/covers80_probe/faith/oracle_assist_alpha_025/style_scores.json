@@ -1,0 +1,48 @@
+{
+  "prompts": {
+    "source_style": "upbeat pop funk with acoustic guitar and clean male vocals",
+    "target_style": "aggressive alternative metal and rap rock with distorted electric guitars, heavy drums and forceful male vocals"
+  },
+  "rows": [
+    {
+      "name": "source",
+      "path": "experiments/data/covers80_probe/faith/source.wav",
+      "style_scores": {
+        "source_style": 0.6285276412963867,
+        "target_style": 0.38047468662261963
+      }
+    },
+    {
+      "name": "real_cover",
+      "path": "experiments/data/covers80_probe/faith/cover.wav",
+      "style_scores": {
+        "source_style": 0.2191961705684662,
+        "target_style": 0.45371055603027344
+      }
+    },
+    {
+      "name": "generated",
+      "path": "experiments/data/covers80_probe/faith/rock_probe/50efcb7c-3fd5-d37e-d569-2b6e59c0c99c.wav",
+      "style_scores": {
+        "source_style": 0.5742025375366211,
+        "target_style": 0.617927074432373
+      }
+    },
+    {
+      "name": "generated_alt",
+      "path": "experiments/data/covers80_probe/faith/oracle_assist_alpha_025/f2c19075-67dd-de1b-06ff-be3e2161fbdd.wav",
+      "style_scores": {
+        "source_style": 0.4326377511024475,
+        "target_style": 0.6573613882064819
+      }
+    }
+  ],
+  "audio_similarities": {
+    "source_to_real_cover": 0.542933464050293,
+    "source_to_generated": 0.6944409608840942,
+    "generated_to_real_cover": 0.6172276735305786,
+    "source_to_generated_alt": 0.5430511832237244,
+    "generated_alt_to_real_cover": 0.6423742175102234,
+    "generated_to_generated_alt": 0.9228007793426514
+  }
+}

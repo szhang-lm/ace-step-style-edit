@@ -1,0 +1,50 @@
+[
+  {
+    "arm": "a100",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/anchor_sweep/a100/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.1169329794819251,
+    "corr_bg": 0.07944964958246609,
+    "nmse_vocal_db": 2.407743623259143,
+    "nmse_bg_db": 4.5878334698791905,
+    "hf_vocal": 0.006427813914476253,
+    "hf_bg": 0.005571123783191682,
+    "coverage": 0.896969696969697,
+    "asr_head": "让这感慨走过深海，每一句话不被掩埋。我们时间把故事怎样更改？"
+  },
+  {
+    "arm": "a075",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/anchor_sweep/a075/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.12289819710440818,
+    "corr_bg": 0.07311699964849881,
+    "nmse_vocal_db": 1.9175611833749275,
+    "nmse_bg_db": 4.417350365156756,
+    "hf_vocal": 0.005621706488271345,
+    "hf_bg": 0.0042019237612318195,
+    "coverage": 0.9090909090909091,
+    "asr_head": "让这首歌陪我走过深海，每句话都不会被掩埋。我们时间把故事怎样"
+  },
+  {
+    "arm": "a050",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/anchor_sweep/a050/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.1186580685500259,
+    "corr_bg": 0.06230114526902798,
+    "nmse_vocal_db": 1.5990696554060548,
+    "nmse_bg_db": 3.7581637076900365,
+    "hf_vocal": 0.006108600194658792,
+    "hf_bg": 0.005249588589228728,
+    "coverage": 0.8787878787878788,
+    "asr_head": "让这颗海走过深海，每一句话不会被掩埋。我们时间把故事怎样更改"
+  },
+  {
+    "arm": "a025",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/anchor_sweep/a025/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.0838910820598462,
+    "corr_bg": 0.04067321173320749,
+    "nmse_vocal_db": 2.5098569626217984,
+    "nmse_bg_db": 4.75465172296815,
+    "hf_vocal": 0.0053326702203905915,
+    "hf_bg": 0.004077945183535868,
+    "coverage": 0.8242424242424242,
+    "asr_head": "让这歌陪我走上海，任时间把故事怎样更改。我还记得你样的期待，"
+  }
+]

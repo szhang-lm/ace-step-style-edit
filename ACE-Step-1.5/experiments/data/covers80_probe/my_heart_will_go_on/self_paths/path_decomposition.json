@@ -1,0 +1,182 @@
+{
+  "inputs": {
+    "original": "experiments/data/covers80_probe/my_heart_will_go_on/self_paths/original/trajectory_tensors.pt",
+    "real_cover": "experiments/data/covers80_probe/my_heart_will_go_on/self_paths/real_cover/trajectory_tensors.pt",
+    "generated": "experiments/data/covers80_probe/my_heart_will_go_on/self_paths/generated_target/trajectory_tensors.pt"
+  },
+  "steps": [
+    {
+      "step": 0,
+      "timestep": 0.75,
+      "velocity": {
+        "cosine": 0.30902767181396484,
+        "parallel_strength": 0.24328508973121643,
+        "generated_to_real_norm": 0.7872598767280579,
+        "orthogonal_to_real_norm": 0.748725950717926,
+        "direction_explained_fraction": 0.09549809992313385
+      },
+      "predicted_clean": {
+        "cosine": 0.26518988609313965,
+        "parallel_strength": 0.21126380562782288,
+        "generated_to_real_norm": 0.7966510653495789,
+        "orthogonal_to_real_norm": 0.7681271433830261,
+        "direction_explained_fraction": 0.07032567262649536
+      },
+      "state": {
+        "cosine": 0.22424153983592987,
+        "parallel_strength": 0.17914138734340668,
+        "generated_to_real_norm": 0.798876941204071,
+        "orthogonal_to_real_norm": 0.7785321474075317,
+        "direction_explained_fraction": 0.05028426647186279
+      }
+    },
+    {
+      "step": 1,
+      "timestep": 0.625,
+      "velocity": {
+        "cosine": 0.2398436814546585,
+        "parallel_strength": 0.19819830358028412,
+        "generated_to_real_norm": 0.8263644576072693,
+        "orthogonal_to_real_norm": 0.8022446632385254,
+        "direction_explained_fraction": 0.057524990290403366
+      },
+      "predicted_clean": {
+        "cosine": 0.21204333007335663,
+        "parallel_strength": 0.1724548637866974,
+        "generated_to_real_norm": 0.8133001923561096,
+        "orthogonal_to_real_norm": 0.7948058247566223,
+        "direction_explained_fraction": 0.04496237263083458
+      },
+      "state": {
+        "cosine": 0.20544078946113586,
+        "parallel_strength": 0.16647152602672577,
+        "generated_to_real_norm": 0.8103138208389282,
+        "orthogonal_to_real_norm": 0.7930297255516052,
+        "direction_explained_fraction": 0.042205918580293655
+      }
+    },
+    {
+      "step": 2,
+      "timestep": 0.5,
+      "velocity": {
+        "cosine": 0.219676211476326,
+        "parallel_strength": 0.18825006484985352,
+        "generated_to_real_norm": 0.8569433689117432,
+        "orthogonal_to_real_norm": 0.8360105752944946,
+        "direction_explained_fraction": 0.04825763776898384
+      },
+      "predicted_clean": {
+        "cosine": 0.19856330752372742,
+        "parallel_strength": 0.16438381373882294,
+        "generated_to_real_norm": 0.8278660178184509,
+        "orthogonal_to_real_norm": 0.8113812804222107,
+        "direction_explained_fraction": 0.039427388459444046
+      },
+      "state": {
+        "cosine": 0.1936822533607483,
+        "parallel_strength": 0.15640895068645477,
+        "generated_to_real_norm": 0.8075544238090515,
+        "orthogonal_to_real_norm": 0.7922624349594116,
+        "direction_explained_fraction": 0.03751281648874283
+      }
+    },
+    {
+      "step": 3,
+      "timestep": 0.375,
+      "velocity": {
+        "cosine": 0.24045008420944214,
+        "parallel_strength": 0.2034255713224411,
+        "generated_to_real_norm": 0.8460199236869812,
+        "orthogonal_to_real_norm": 0.8211992979049683,
+        "direction_explained_fraction": 0.057816244661808014
+      },
+      "predicted_clean": {
+        "cosine": 0.20081590116024017,
+        "parallel_strength": 0.16401253640651703,
+        "generated_to_real_norm": 0.8167309165000916,
+        "orthogonal_to_real_norm": 0.8000926971435547,
+        "direction_explained_fraction": 0.040327027440071106
+      },
+      "state": {
+        "cosine": 0.18892881274223328,
+        "parallel_strength": 0.15306022763252258,
+        "generated_to_real_norm": 0.8101475834846497,
+        "orthogonal_to_real_norm": 0.7955572605133057,
+        "direction_explained_fraction": 0.035694096237421036
+      }
+    },
+    {
+      "step": 4,
+      "timestep": 0.25,
+      "velocity": {
+        "cosine": 0.2511933147907257,
+        "parallel_strength": 0.21315114200115204,
+        "generated_to_real_norm": 0.8485541939735413,
+        "orthogonal_to_real_norm": 0.8213464021682739,
+        "direction_explained_fraction": 0.06309808045625687
+      },
+      "predicted_clean": {
+        "cosine": 0.19079278409481049,
+        "parallel_strength": 0.15480902791023254,
+        "generated_to_real_norm": 0.8113986253738403,
+        "orthogonal_to_real_norm": 0.7964938879013062,
+        "direction_explained_fraction": 0.036401886492967606
+      },
+      "state": {
+        "cosine": 0.188982293009758,
+        "parallel_strength": 0.15295931696891785,
+        "generated_to_real_norm": 0.8093844056129456,
+        "orthogonal_to_real_norm": 0.7947993278503418,
+        "direction_explained_fraction": 0.03571430593729019
+      }
+    },
+    {
+      "step": 5,
+      "timestep": 0.125,
+      "velocity": {
+        "cosine": 0.3505718410015106,
+        "parallel_strength": 0.3035176396369934,
+        "generated_to_real_norm": 0.8657787442207336,
+        "orthogonal_to_real_norm": 0.8108323216438293,
+        "direction_explained_fraction": 0.12290061265230179
+      },
+      "predicted_clean": {
+        "cosine": 0.19785438477993011,
+        "parallel_strength": 0.15991473197937012,
+        "generated_to_real_norm": 0.8082445859909058,
+        "orthogonal_to_real_norm": 0.7922663688659668,
+        "direction_explained_fraction": 0.03914635628461838
+      },
+      "state": {
+        "cosine": 0.18596920371055603,
+        "parallel_strength": 0.15028785169124603,
+        "generated_to_real_norm": 0.8081330060958862,
+        "orthogonal_to_real_norm": 0.7940352559089661,
+        "direction_explained_fraction": 0.034584544599056244
+      }
+    }
+  ],
+  "mean": {
+    "velocity": {
+      "cosine": 0.2684604674577713,
+      "parallel_strength": 0.22497130185365677,
+      "generated_to_real_norm": 0.8384867608547211,
+      "orthogonal_to_real_norm": 0.8067265351613363,
+      "direction_explained_fraction": 0.07418261095881462
+    },
+    "predicted_clean": {
+      "cosine": 0.21087659895420074,
+      "parallel_strength": 0.1711397965749105,
+      "generated_to_real_norm": 0.8123652338981628,
+      "orthogonal_to_real_norm": 0.7938612004121145,
+      "direction_explained_fraction": 0.04509845065573851
+    },
+    "state": {
+      "cosine": 0.1978741486867269,
+      "parallel_strength": 0.15972154339154562,
+      "generated_to_real_norm": 0.807401696840922,
+      "orthogonal_to_real_norm": 0.791369358698527,
+      "direction_explained_fraction": 0.03933265805244446
+    }
+  }
+}

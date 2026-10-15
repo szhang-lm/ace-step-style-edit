@@ -1,0 +1,37 @@
+{
+  "prompts": {
+    "source_style": "dark synth pop with electronic drums, layered synthesizers and restrained male vocals",
+    "target_style": "sparse alternative piano ballad with intimate female vocals and a dark art pop atmosphere"
+  },
+  "rows": [
+    {
+      "name": "source",
+      "path": "experiments/data/covers80_probe/enjoy_the_silence/source.wav",
+      "style_scores": {
+        "source_style": 0.4867619574069977,
+        "target_style": 0.3191435933113098
+      }
+    },
+    {
+      "name": "real_cover",
+      "path": "experiments/data/covers80_probe/enjoy_the_silence/cover.wav",
+      "style_scores": {
+        "source_style": 0.3880075216293335,
+        "target_style": 0.5321284532546997
+      }
+    },
+    {
+      "name": "generated",
+      "path": "experiments/data/covers80_probe/enjoy_the_silence/generated_target/32319576-07ab-3817-c6c6-e0fe8eabdacf.wav",
+      "style_scores": {
+        "source_style": 0.3728228807449341,
+        "target_style": 0.6305294632911682
+      }
+    }
+  ],
+  "audio_similarities": {
+    "source_to_real_cover": 0.7536773681640625,
+    "source_to_generated": 0.3352420926094055,
+    "generated_to_real_cover": 0.5907052755355835
+  }
+}

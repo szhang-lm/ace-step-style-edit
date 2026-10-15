@@ -1,0 +1,50 @@
+[
+  {
+    "arm": "vctx000",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocal_context_release/vctx000/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.019420809296136175,
+    "corr_bg": 0.023388000806494516,
+    "nmse_vocal_db": 3.253164380168135,
+    "nmse_bg_db": 4.701463857676802,
+    "hf_vocal": 0.010417459906367653,
+    "hf_bg": 0.008613718006490346,
+    "coverage": 0.5636363636363636,
+    "asr_head": "夜晚的灯照亮旧的站台，等下一程花的春天盛开。远方的雨慢慢向前"
+  },
+  {
+    "arm": "vctx050",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocal_context_release/vctx050/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.06851876376248806,
+    "corr_bg": 0.05529890903406515,
+    "nmse_vocal_db": 2.5159905127310718,
+    "nmse_bg_db": 4.565120232534772,
+    "hf_vocal": 0.006431159002902653,
+    "hf_bg": 0.004530767569344196,
+    "coverage": 0.8181818181818182,
+    "asr_head": "走过深海，每一句歌都不会被掩埋。我们时间把故事怎样更改？我还"
+  },
+  {
+    "arm": "vctx075",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocal_context_release/vctx075/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.0797488032737323,
+    "corr_bg": 0.06879209104004708,
+    "nmse_vocal_db": 2.223534834865937,
+    "nmse_bg_db": 4.142827083303585,
+    "hf_vocal": 0.00594141160240537,
+    "hf_bg": 0.004394596329737614,
+    "coverage": 0.8727272727272727,
+    "asr_head": "让这灯陪我走过深海，每句话都不会被掩埋。我们时间把故事怎样更"
+  },
+  {
+    "arm": "vctx100",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocal_context_release/vctx100/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.11651251709683491,
+    "corr_bg": 0.0729663835297736,
+    "nmse_vocal_db": 2.1001715244475525,
+    "nmse_bg_db": 4.1913473785892394,
+    "hf_vocal": 0.006376522409225278,
+    "hf_bg": 0.005652181158903202,
+    "coverage": 0.9151515151515152,
+    "asr_head": "让这灯陪我走过深海，每一句话不会被掩埋。我们时间把故事怎样更"
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "cases": [
+    {
+      "name": "Faith",
+      "style_velocity_cosine_mean": 0.3809429655472438,
+      "style_velocity_cosine_by_step": [
+        0.40110933780670166,
+        0.3998925983905792,
+        0.3894260823726654,
+        0.3752090036869049,
+        0.3610788583755493,
+        0.358941912651062
+      ],
+      "style_clean_cosine_mean": 0.2720812261104584,
+      "style_state_cosine_mean": 0.2057318389415741,
+      "source_target_margin": -0.2480529546737671,
+      "real_cover_target_margin": 0.23451438546180725,
+      "generated_target_margin": 0.04372453689575195,
+      "alignment_chroma_distance": 0.005591071676462889
+    },
+    {
+      "name": "My Heart Will Go On",
+      "style_velocity_cosine_mean": 0.26846060405174893,
+      "style_velocity_cosine_by_step": [
+        0.3090280294418335,
+        0.23984377086162567,
+        0.2196764498949051,
+        0.24045003950595856,
+        0.2511933743953705,
+        0.35057196021080017
+      ],
+      "style_clean_cosine_mean": 0.2108767032623291,
+      "style_state_cosine_mean": 0.19787427286307016,
+      "source_target_margin": -0.0843827947974205,
+      "real_cover_target_margin": 0.2605252265930176,
+      "generated_target_margin": 0.08265307080000639,
+      "alignment_chroma_distance": 0.019592126831412315
+    },
+    {
+      "name": "Enjoy the Silence",
+      "style_velocity_cosine_mean": 0.42481276392936707,
+      "style_velocity_cosine_by_step": [
+        0.3816883862018585,
+        0.41738754510879517,
+        0.432591050863266,
+        0.4398731291294098,
+        0.4315344989299774,
+        0.4458019733428955
+      ],
+      "style_clean_cosine_mean": 0.3258449335892995,
+      "style_state_cosine_mean": 0.29974821706612903,
+      "source_target_margin": -0.16761836409568787,
+      "real_cover_target_margin": 0.1441209316253662,
+      "generated_target_margin": 0.25770658254623413,
+      "alignment_chroma_distance": 0.06560907512903214
+    }
+  ],
+  "macro_mean": {
+    "style_velocity_cosine_mean": 0.35807211117612,
+    "style_clean_cosine_mean": 0.26960095432069564,
+    "style_state_cosine_mean": 0.23445144295692444
+  }
+}

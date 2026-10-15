@@ -1,0 +1,113 @@
+{
+  "inputs": {
+    "original": {
+      "trajectory": "experiments/data/covers80_probe/my_heart_will_go_on/self_paths/original/trajectory_tensors.pt",
+      "audio": "experiments/data/covers80_probe/my_heart_will_go_on/source.wav",
+      "caption": "dramatic adult contemporary pop ballad, orchestral arrangement, powerful female vocals",
+      "seed": 20261014
+    },
+    "real_cover": {
+      "trajectory": "experiments/data/covers80_probe/my_heart_will_go_on/self_paths/real_cover/trajectory_tensors.pt",
+      "audio": "experiments/data/covers80_probe/my_heart_will_go_on/cover.wav",
+      "caption": "energetic pop punk, distorted electric guitars, fast live drums, youthful male punk vocals",
+      "seed": 20261014
+    },
+    "generated": {
+      "trajectory": "experiments/data/covers80_probe/my_heart_will_go_on/self_paths/generated_target/trajectory_tensors.pt",
+      "audio": "experiments/data/covers80_probe/my_heart_will_go_on/generated_target/e433071c-b4de-c452-3c7e-e82a79a7c73c.wav",
+      "caption": "energetic pop punk, distorted electric guitars, fast live drums, youthful male punk vocals",
+      "seed": 20261014
+    }
+  },
+  "steps": [
+    {
+      "step": 0,
+      "timestep": 0.75,
+      "velocity_cosine_real_original": 0.5790024399757385,
+      "velocity_cosine_real_generated": 0.5247271060943604,
+      "clean_cosine_real_original": 0.49859195947647095,
+      "clean_cosine_real_generated": 0.535355269908905,
+      "state_nmse_real_original": 0.09317222237586975,
+      "state_nmse_real_generated": 0.09673263877630234,
+      "style_velocity_cosine": 0.3090280294418335,
+      "style_clean_cosine": 0.2651900351047516,
+      "style_state_cosine": 0.22424188256263733
+    },
+    {
+      "step": 1,
+      "timestep": 0.625,
+      "velocity_cosine_real_original": 0.5311583280563354,
+      "velocity_cosine_real_generated": 0.4713963568210602,
+      "clean_cosine_real_original": 0.488521009683609,
+      "clean_cosine_real_generated": 0.4916997253894806,
+      "state_nmse_real_original": 0.1388123780488968,
+      "state_nmse_real_generated": 0.1373690813779831,
+      "style_velocity_cosine": 0.23984377086162567,
+      "style_clean_cosine": 0.2120433747768402,
+      "style_state_cosine": 0.20544090867042542
+    },
+    {
+      "step": 2,
+      "timestep": 0.5,
+      "velocity_cosine_real_original": 0.46337130665779114,
+      "velocity_cosine_real_generated": 0.40297797322273254,
+      "clean_cosine_real_original": 0.4761071503162384,
+      "clean_cosine_real_generated": 0.47638899087905884,
+      "state_nmse_real_original": 0.24610655009746552,
+      "state_nmse_real_generated": 0.22793087363243103,
+      "style_velocity_cosine": 0.2196764498949051,
+      "style_clean_cosine": 0.19856339693069458,
+      "style_state_cosine": 0.19368237257003784
+    },
+    {
+      "step": 3,
+      "timestep": 0.375,
+      "velocity_cosine_real_original": 0.42411327362060547,
+      "velocity_cosine_real_generated": 0.3639579713344574,
+      "clean_cosine_real_original": 0.47240549325942993,
+      "clean_cosine_real_generated": 0.47871360182762146,
+      "state_nmse_real_original": 0.44395866990089417,
+      "state_nmse_real_generated": 0.3787638545036316,
+      "style_velocity_cosine": 0.24045003950595856,
+      "style_clean_cosine": 0.2008160948753357,
+      "style_state_cosine": 0.18892890214920044
+    },
+    {
+      "step": 4,
+      "timestep": 0.25,
+      "velocity_cosine_real_original": 0.3715883195400238,
+      "velocity_cosine_real_generated": 0.3199080228805542,
+      "clean_cosine_real_original": 0.47324395179748535,
+      "clean_cosine_real_generated": 0.47465670108795166,
+      "state_nmse_real_original": 0.7236716151237488,
+      "state_nmse_real_generated": 0.5675509572029114,
+      "style_velocity_cosine": 0.2511933743953705,
+      "style_clean_cosine": 0.19079282879829407,
+      "style_state_cosine": 0.18898232281208038
+    },
+    {
+      "step": 5,
+      "timestep": 0.125,
+      "velocity_cosine_real_original": 0.3348737955093384,
+      "velocity_cosine_real_generated": 0.3065817654132843,
+      "clean_cosine_real_original": 0.4500105082988739,
+      "clean_cosine_real_generated": 0.45886099338531494,
+      "state_nmse_real_original": 1.0127941370010376,
+      "state_nmse_real_generated": 0.7610042095184326,
+      "style_velocity_cosine": 0.35057196021080017,
+      "style_clean_cosine": 0.19785448908805847,
+      "style_state_cosine": 0.1859692484140396
+    }
+  ],
+  "mean": {
+    "velocity_cosine_real_original": 0.4506845772266388,
+    "velocity_cosine_real_generated": 0.39825819929440814,
+    "clean_cosine_real_original": 0.47648001213868457,
+    "clean_cosine_real_generated": 0.4859458804130554,
+    "state_nmse_real_original": 0.4430859287579854,
+    "state_nmse_real_generated": 0.36155860250194866,
+    "style_velocity_cosine": 0.26846060405174893,
+    "style_clean_cosine": 0.2108767032623291,
+    "style_state_cosine": 0.19787427286307016
+  }
+}

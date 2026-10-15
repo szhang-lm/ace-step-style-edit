@@ -1,0 +1,11 @@
+{
+  "first": "experiments/data/coversongs/covers32k/Faith/george_michael+Faith+01-Faith.mp3",
+  "second": "experiments/data/coversongs/covers32k/Faith/limp_bizkit+Three_Dollar_Bill_Yall+09-Faith.mp3",
+  "source_clip": "experiments/data/covers80_probe/faith/source.wav",
+  "cover_clip": "experiments/data/covers80_probe/faith/cover.wav",
+  "duration_seconds": 20.0,
+  "source_start_seconds": 132.336,
+  "cover_start_seconds": 117.232,
+  "pitch_shift_semitones": 1,
+  "mean_chroma_distance": 0.005591071676462889
+}

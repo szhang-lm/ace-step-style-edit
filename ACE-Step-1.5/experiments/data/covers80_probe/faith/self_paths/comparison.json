@@ -1,0 +1,113 @@
+{
+  "inputs": {
+    "original": {
+      "trajectory": "experiments/data/covers80_probe/faith/self_paths/original/trajectory_tensors.pt",
+      "audio": "experiments/data/covers80_probe/faith/source.wav",
+      "caption": "upbeat pop funk, acoustic guitar, danceable groove, clean male vocals",
+      "seed": 20261014
+    },
+    "real_cover": {
+      "trajectory": "experiments/data/covers80_probe/faith/self_paths/real_cover/trajectory_tensors.pt",
+      "audio": "experiments/data/covers80_probe/faith/cover.wav",
+      "caption": "aggressive alternative metal and rap rock, distorted electric guitars, heavy drums, forceful male vocals",
+      "seed": 20261014
+    },
+    "generated": {
+      "trajectory": "experiments/data/covers80_probe/faith/self_paths/generated_rock/trajectory_tensors.pt",
+      "audio": "experiments/data/covers80_probe/faith/rock_probe/50efcb7c-3fd5-d37e-d569-2b6e59c0c99c.wav",
+      "caption": "aggressive alternative metal and rap rock, distorted electric guitars, heavy drums, forceful male vocals",
+      "seed": 20261014
+    }
+  },
+  "steps": [
+    {
+      "step": 0,
+      "timestep": 0.75,
+      "velocity_cosine_real_original": 0.47802090644836426,
+      "velocity_cosine_real_generated": 0.41542160511016846,
+      "clean_cosine_real_original": 0.46669963002204895,
+      "clean_cosine_real_generated": 0.4282976984977722,
+      "state_nmse_real_original": 0.10459479689598083,
+      "state_nmse_real_generated": 0.1170620396733284,
+      "style_velocity_cosine": 0.40110933780670166,
+      "style_clean_cosine": 0.2881719470024109,
+      "style_state_cosine": 0.252044141292572
+    },
+    {
+      "step": 1,
+      "timestep": 0.625,
+      "velocity_cosine_real_original": 0.42510688304901123,
+      "velocity_cosine_real_generated": 0.37540867924690247,
+      "clean_cosine_real_original": 0.4388207793235779,
+      "clean_cosine_real_generated": 0.40860241651535034,
+      "state_nmse_real_original": 0.14661522209644318,
+      "state_nmse_real_generated": 0.1754896193742752,
+      "style_velocity_cosine": 0.3998925983905792,
+      "style_clean_cosine": 0.278171181678772,
+      "style_state_cosine": 0.1771661639213562
+    },
+    {
+      "step": 2,
+      "timestep": 0.5,
+      "velocity_cosine_real_original": 0.37071844935417175,
+      "velocity_cosine_real_generated": 0.3348403573036194,
+      "clean_cosine_real_original": 0.44212496280670166,
+      "clean_cosine_real_generated": 0.41170766949653625,
+      "state_nmse_real_original": 0.24849265813827515,
+      "state_nmse_real_generated": 0.2816682457923889,
+      "style_velocity_cosine": 0.3894260823726654,
+      "style_clean_cosine": 0.2700977623462677,
+      "style_state_cosine": 0.16244138777256012
+    },
+    {
+      "step": 3,
+      "timestep": 0.375,
+      "velocity_cosine_real_original": 0.3334521949291229,
+      "velocity_cosine_real_generated": 0.30359235405921936,
+      "clean_cosine_real_original": 0.44602346420288086,
+      "clean_cosine_real_generated": 0.4190693795681,
+      "state_nmse_real_original": 0.41421765089035034,
+      "state_nmse_real_generated": 0.431838721036911,
+      "style_velocity_cosine": 0.3752090036869049,
+      "style_clean_cosine": 0.26585114002227783,
+      "style_state_cosine": 0.18457730114459991
+    },
+    {
+      "step": 4,
+      "timestep": 0.25,
+      "velocity_cosine_real_original": 0.29845720529556274,
+      "velocity_cosine_real_generated": 0.27083224058151245,
+      "clean_cosine_real_original": 0.4426425099372864,
+      "clean_cosine_real_generated": 0.4192928373813629,
+      "state_nmse_real_original": 0.623620867729187,
+      "state_nmse_real_generated": 0.6090257167816162,
+      "style_velocity_cosine": 0.3610788583755493,
+      "style_clean_cosine": 0.26364976167678833,
+      "style_state_cosine": 0.21566340327262878
+    },
+    {
+      "step": 5,
+      "timestep": 0.125,
+      "velocity_cosine_real_original": 0.2699660360813141,
+      "velocity_cosine_real_generated": 0.2563066780567169,
+      "clean_cosine_real_original": 0.42266514897346497,
+      "clean_cosine_real_generated": 0.40245136618614197,
+      "state_nmse_real_original": 0.8398827910423279,
+      "state_nmse_real_generated": 0.7901481986045837,
+      "style_velocity_cosine": 0.358941912651062,
+      "style_clean_cosine": 0.2665455639362335,
+      "style_state_cosine": 0.24249863624572754
+    }
+  ],
+  "mean": {
+    "velocity_cosine_real_original": 0.3626202791929245,
+    "velocity_cosine_real_generated": 0.3260669857263565,
+    "clean_cosine_real_original": 0.44316274921099347,
+    "clean_cosine_real_generated": 0.41490356127421063,
+    "state_nmse_real_original": 0.3962373311320941,
+    "state_nmse_real_generated": 0.40087209021051723,
+    "style_velocity_cosine": 0.3809429655472438,
+    "style_clean_cosine": 0.2720812261104584,
+    "style_state_cosine": 0.2057318389415741
+  }
+}

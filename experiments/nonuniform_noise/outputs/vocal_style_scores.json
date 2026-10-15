@@ -1,0 +1,50 @@
+[
+  {
+    "arm": "A_vocal_lock",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocal_style/A_vocal_lock/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.11605605767850194,
+    "corr_bg": 0.07695457752594129,
+    "nmse_vocal_db": 2.241400312558843,
+    "nmse_bg_db": 4.475204858057668,
+    "hf_vocal": 0.006508548007249477,
+    "hf_bg": 0.004820202589132273,
+    "coverage": 0.9090909090909091,
+    "asr_head": "让这感慨走过深海，每一句话不会被掩埋。我们时间把故事怎样更改"
+  },
+  {
+    "arm": "B_vocal_free",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocal_style/B_vocal_free/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.050517630964015944,
+    "corr_bg": 0.053240716685769116,
+    "nmse_vocal_db": 2.109560543086373,
+    "nmse_bg_db": 3.85162357646009,
+    "hf_vocal": 0.005829688293575217,
+    "hf_bg": 0.006101401285137826,
+    "coverage": 0.7333333333333333,
+    "asr_head": "让这歌陪我走上海，每一句歌都不被掩埋。等时间把故事翻页更改，"
+  },
+  {
+    "arm": "C_free_gate_full",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocal_style/C_free_gate_full/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.008737544646886345,
+    "corr_bg": -0.001687001229999304,
+    "nmse_vocal_db": 3.6007476560645078,
+    "nmse_bg_db": 6.88105962949458,
+    "hf_vocal": 0.01652528166245892,
+    "hf_bg": 0.02176720655575835,
+    "coverage": 0.0,
+    "asr_head": "啦"
+  },
+  {
+    "arm": "D_free_gate_half",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/vocal_style/D_free_gate_half/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.015552564946790285,
+    "corr_bg": 0.027785224280203333,
+    "nmse_vocal_db": 2.6476544295801343,
+    "nmse_bg_db": 4.292489303434111,
+    "hf_vocal": 0.00733603418855045,
+    "hf_bg": 0.0070766912772268755,
+    "coverage": 0.5151515151515151,
+    "asr_head": "让这歌陪走过山海，每一句话不被掩埋。但时间将把故事怎样更改？"
+  }
+]

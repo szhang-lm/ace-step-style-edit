@@ -1,0 +1,11 @@
+{
+  "first": "experiments/data/coversongs/covers32k/Heart_Of_Gold/neil_young+Harvest+04-Heart_Of_Gold.mp3",
+  "second": "experiments/data/coversongs/covers32k/Heart_Of_Gold/tori_amos+Strange_Little_Girls+08-Heart_Of_Gold.mp3",
+  "source_clip": "experiments/data/covers80_probe/heart_of_gold/source.wav",
+  "cover_clip": "experiments/data/covers80_probe/heart_of_gold/cover.wav",
+  "duration_seconds": 20.0,
+  "source_start_seconds": 149.744,
+  "cover_start_seconds": 82.416,
+  "pitch_shift_semitones": 0,
+  "mean_chroma_distance": 0.028422478586435318
+}

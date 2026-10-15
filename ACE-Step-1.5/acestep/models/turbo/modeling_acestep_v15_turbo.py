@@ -13,6 +13,7 @@
 # limitations under the License.
 import copy
 import math
+import os
 import time
 from typing import Callable, List, Optional, Union
 
@@ -52,10 +53,15 @@ except ImportError:
 # on `generate_audio` and docs/en/DCW.md for details.
 from acestep.models.common.dcw_correction import DCWCorrector
 from acestep.models.common.vocal_noise_schedule import (
+    apply_source_context_gate,
+    context_gate_strength_from_env,
+    context_gate_target_from_env,
     inject_source_path,
+    load_context_gate_mask_from_env,
     load_vocal_schedule_from_env,
     prepare_nonuniform_start,
 )
+from loguru import logger as run_logger
 
 
 logger = logging.get_logger(__name__)
@@ -1672,6 +1678,7 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
         is_covers: torch.Tensor,
         precomputed_lm_hints_25Hz: Optional[torch.FloatTensor] = None,
         audio_codes: torch.FloatTensor = None,
+        source_context_gate: Optional[torch.Tensor] = None,
     ):
         
         dtype = hidden_states.dtype
@@ -1688,7 +1695,7 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
         # tokenize and detokenize to get LM hints for cover songs (when is_covers=True)
         # Use precomputed hints if provided (e.g., from audio codes), otherwise tokenize hidden_states
         if precomputed_lm_hints_25Hz is not None:
-            print("Using precomputed LM hints")
+            run_logger.info("[prepare_condition] Using precomputed LM hints")
             lm_hints_25Hz = precomputed_lm_hints_25Hz[:, :src_latents.shape[1], :]
         else:
             if audio_codes is not None:
@@ -1701,6 +1708,16 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
         src_latents = torch.where(is_covers.unsqueeze(-1).unsqueeze(-1) > 0, lm_hints_25Hz, src_latents)
         # Concatenate source latents with chunk masks as context
         context_latents = torch.cat([src_latents, chunk_masks.to(dtype)], dim=-1)
+        # Optional per-frame attenuation of the source block.  This is the
+        # conditioning-side counterpart to the noise schedule: it changes how
+        # much source information each frame is allowed to read, rather than
+        # how far each frame may drift.  ``None`` (the default, and what the
+        # training path passes) is an exact no-op.  The source block width is
+        # taken from `src_latents`, not inferred by halving: `chunk_masks`
+        # contributes a different number of channels.
+        context_latents = apply_source_context_gate(
+            context_latents, source_context_gate, src_latents.shape[-1]
+        )
         return encoder_hidden_states, encoder_attention_mask, context_latents
 
     def forward(
@@ -1918,7 +1935,7 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
 
         # Valid shifts: only discrete values 1, 2, 3 are supported
         VALID_SHIFTS = [1.0, 2.0, 3.0]
-        
+
         # Valid timesteps: all unique timesteps from shift=1,2,3 with fix_nfe=8 (total 20 values)
         VALID_TIMESTEPS = [
             1.0, 0.9545454545454546, 0.9333333333333333, 0.9, 0.875, 
@@ -1998,6 +2015,51 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
         time_costs = {}
         start_time = time.time()
         total_start_time = start_time
+
+        # Resolve the opt-in per-frame vocal protection schedule before the
+        # conditions are built.  Its mask drives the non-uniform noise schedule
+        # and remains the context-gate fallback when no independent context
+        # mask is configured.  The schedule can lower the starting noise of the
+        # vocal frames (mode "init"/"both") and/or keep clamping them onto the
+        # source path while the global timestep is above the vocal floor.
+        vocal_spec = load_vocal_schedule_from_env(
+            src_latents,
+            valid_timesteps=VALID_TIMESTEPS,
+            global_timestep=t_schedule_list[0],
+        )
+        # Conditioning-side control, independent of the noise schedule above.
+        # Its mask and target region may differ from the trajectory-protection
+        # mask, which lets an onset window preserve lyrics while a full-vocal
+        # mask releases source performance conditioning.
+        source_context_strength = context_gate_strength_from_env()
+        source_context_target = context_gate_target_from_env()
+        source_context_mask = (
+            load_context_gate_mask_from_env(src_latents, vocal_spec.mask)
+            if vocal_spec is not None
+            else None
+        )
+        source_context_gate = (
+            vocal_spec.context_gate(
+                source_context_strength,
+                mask=source_context_mask,
+                target=source_context_target,
+            )
+            if vocal_spec is not None
+            else None
+        )
+        if source_context_gate is not None:
+            run_logger.info(
+                "[generate_audio] Source context gate: target={} strength={:.2f} "
+                "mask_mean={:.4f} gate=[{:.3f}, {:.3f}] shape={} source_channels={}",
+                source_context_target,
+                source_context_strength,
+                source_context_mask.mean().item(),
+                source_context_gate.min().item(),
+                source_context_gate.max().item(),
+                tuple(source_context_gate.shape),
+                src_latents.shape[-1],
+            )
+
         encoder_hidden_states, encoder_attention_mask, context_latents = self.prepare_condition(
             text_hidden_states=text_hidden_states,
             text_attention_mask=text_attention_mask,
@@ -2013,6 +2075,7 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
             is_covers=is_covers,
             precomputed_lm_hints_25Hz=precomputed_lm_hints_25Hz,
             audio_codes=audio_codes,
+            source_context_gate=source_context_gate,
         )
         
         encoder_hidden_states_non_cover, encoder_attention_mask_non_cover, context_latents_non_cover = None, None, None
@@ -2072,24 +2135,20 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
             xt = noise
 
         # Vocal-aware non-uniform renoising.  `xt` above is the stock *global*
-        # start state; the spec can additionally lower the starting noise of the
-        # vocal frames (mode "init"/"both") and/or keep clamping them onto the
-        # source path while the global timestep is still above the vocal floor
+        # start state; `vocal_spec` (resolved before the conditions were built)
+        # can additionally lower the starting noise of the vocal frames
+        # (mode "init"/"both") and/or keep clamping them onto the source path
+        # while the global timestep is still above the vocal floor
         # (mode "inject"/"both").
-        vocal_spec = load_vocal_schedule_from_env(
-            src_latents,
-            valid_timesteps=VALID_TIMESTEPS,
-            global_timestep=t_schedule_list[0],
-        )
         if vocal_spec is not None:
             if vocal_spec.protects_init:
                 xt = prepare_nonuniform_start(
                     src_latents, noise, vocal_spec, t_schedule_list[0]
                 )
-            logger.info(
-                "[generate_audio] Vocal protection: mode=%s granularity=%s "
-                "global_t=%.4f vocal_t=%.4f vocal_cns=%.2f fade=%.2fs "
-                "mask_mean=%.4f init_steps=%d",
+            run_logger.info(
+                "[generate_audio] Vocal protection: mode={} granularity={} "
+                "global_t={:.4f} vocal_t={:.4f} vocal_cns={:.2f} fade={:.2f}s "
+                "mask_mean={:.4f} init_steps={} context_strength={:.2f} anchor_strength={:.2f}",
                 vocal_spec.mode,
                 vocal_spec.granularity,
                 t_schedule_list[0],
@@ -2098,6 +2157,8 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
                 vocal_spec.fade_seconds,
                 vocal_spec.mask.mean().item(),
                 vocal_spec.init_steps,
+                source_context_strength,
+                vocal_spec.anchor_strength,
             )
         
         # Use pre-computed t_schedule_list (already validated and mapped to valid timesteps)
@@ -2248,6 +2309,7 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
                     noise,
                     vocal_spec.mask,
                     t_after_step,
+                    strength=vocal_spec.anchor_strength,
                 )
 
             prev_vt = vt

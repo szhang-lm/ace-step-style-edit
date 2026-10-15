@@ -6,18 +6,28 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import numpy as np
 import torch
 
 from acestep.models.common.vocal_noise_schedule import (
+    ANCHOR_STRENGTH_ENV,
+    CONTEXT_MASK_NPY_ENV,
+    CONTEXT_STRENGTH_ENV,
+    CONTEXT_TARGET_ENV,
     INIT_STEPS_ENV,
     MASK_FADE_ENV,
     MASK_PATH_ENV,
     MODE_ENV,
     VOCAL_CNS_ENV,
     VocalProtectionSpec,
+    anchor_strength_from_env,
+    apply_source_context_gate,
     build_vocal_activity_mask,
+    context_gate_strength_from_env,
+    context_gate_target_from_env,
     extract_intervals,
     inject_source_path,
+    load_context_gate_mask_from_env,
     load_vocal_schedule_from_env,
     nearest_timestep,
     prepare_nonuniform_start,
@@ -264,6 +274,234 @@ class VocalNoiseScheduleTest(unittest.TestCase):
         finally:
             if saved is not None:
                 os.environ[MASK_PATH_ENV] = saved
+
+
+class SourceContextGateTest(unittest.TestCase):
+    """The conditioning-side gate that attenuates the source block per frame."""
+
+    @staticmethod
+    def _mask(values) -> torch.Tensor:
+        return torch.tensor(values, dtype=torch.float32).view(1, -1, 1)
+
+    def test_zero_strength_is_an_exact_no_op(self) -> None:
+        """strength=0 must reproduce stock condition construction bit for bit."""
+        spec = _spec(self._mask([[1.0, 0.0, 1.0]]), 0.5, "both")
+        gate = spec.context_gate(0.0)
+        self.assertTrue(torch.equal(gate, torch.ones_like(spec.mask)))
+
+        context = torch.randn(1, 3, 8)
+        self.assertTrue(
+            torch.equal(apply_source_context_gate(context, gate, 6), context)
+        )
+
+    def test_full_strength_hands_the_gate_the_mask_itself(self) -> None:
+        """strength=1 protects exactly the frames the noise mask protects."""
+        mask = self._mask([[1.0, 0.0, 0.5]])
+        spec = _spec(mask, 0.5, "both")
+        self.assertTrue(torch.equal(spec.context_gate(1.0), mask))
+
+    def test_intermediate_strength_blends_towards_the_mask(self) -> None:
+        """Half strength keeps half of the accompaniment's source block."""
+        mask = self._mask([[1.0, 0.0]])
+        spec = _spec(mask, 0.5, "both")
+        gate = spec.context_gate(0.5)
+        self.assertAlmostEqual(gate[0, 0, 0].item(), 1.0)
+        self.assertAlmostEqual(gate[0, 1, 0].item(), 0.5)
+
+    def test_vocal_target_attenuates_the_inverse_region(self) -> None:
+        """The vocal target frees vocal frames and preserves accompaniment."""
+        mask = self._mask([[1.0, 0.0, 0.5]])
+        spec = _spec(mask, 0.5, "init")
+        gate = spec.context_gate(1.0, target="vocal")
+        torch.testing.assert_close(gate, self._mask([[0.0, 1.0, 0.5]]))
+
+    def test_context_mask_can_differ_from_noise_mask(self) -> None:
+        """A full-vocal context mask need not reuse the onset protection mask."""
+        onset_mask = self._mask([[1.0, 0.0, 0.0]])
+        full_vocal_mask = self._mask([[1.0, 1.0, 0.0]])
+        spec = _spec(onset_mask, 0.5, "init")
+        gate = spec.context_gate(1.0, mask=full_vocal_mask, target="vocal")
+        torch.testing.assert_close(gate, self._mask([[0.0, 0.0, 1.0]]))
+        self.assertTrue(torch.equal(spec.mask, onset_mask))
+
+    def test_out_of_range_strengths_are_rejected(self) -> None:
+        spec = _spec(self._mask([[1.0, 0.0]]), 0.5, "both")
+        for bad in (-0.1, 1.1):
+            with self.assertRaises(ValueError):
+                spec.context_gate(bad)
+
+    def test_unknown_target_is_rejected(self) -> None:
+        spec = _spec(self._mask([[1.0, 0.0]]), 0.5, "init")
+        with self.assertRaises(ValueError):
+            spec.context_gate(0.5, target="everything")
+
+    def test_gate_scales_only_the_source_block(self) -> None:
+        """The chunk-mask channels mark region validity and stay untouched.
+
+        The channel ratio here is 2 source + 1 validity, i.e. deliberately
+        *not* 1:1: the real layout is 128 source channels plus one mask
+        channel, so any implementation that infers the boundary by halving
+        the channel count must fail this test.
+        """
+        source = torch.stack([torch.zeros(2), torch.full((2,), 10.0)]).view(1, 2, 2)
+        validity = torch.ones(1, 2, 1)
+        context = torch.cat([source, validity], dim=-1)
+        gate = self._mask([[1.0, 0.0]])
+        gated = apply_source_context_gate(context, gate, 2)
+
+        self.assertEqual(gated.shape, (1, 2, 3))
+        torch.testing.assert_close(gated[..., 2:], validity)
+        torch.testing.assert_close(gated[0, 0, :2], source[0, 0])
+        torch.testing.assert_close(gated[0, 1, :2], torch.zeros(2))
+
+    def test_split_width_must_be_consistent(self) -> None:
+        context = torch.randn(1, 4, 6)
+        for bad in (0, 6, 7, -1):
+            with self.assertRaises(ValueError):
+                apply_source_context_gate(context, self._mask([[1.0] * 4]), bad)
+
+    def test_none_gate_leaves_context_untouched(self) -> None:
+        context = torch.randn(1, 5, 6)
+        self.assertTrue(
+            torch.equal(apply_source_context_gate(context, None, 5), context)
+        )
+
+    def test_env_strength_defaults_to_off_and_validates(self) -> None:
+        saved = os.environ.pop(CONTEXT_STRENGTH_ENV, None)
+        try:
+            self.assertEqual(context_gate_strength_from_env(), 0.0)
+            os.environ[CONTEXT_STRENGTH_ENV] = "0.75"
+            self.assertEqual(context_gate_strength_from_env(), 0.75)
+            os.environ[CONTEXT_STRENGTH_ENV] = "1.5"
+            with self.assertRaises(ValueError):
+                context_gate_strength_from_env()
+        finally:
+            if saved is None:
+                os.environ.pop(CONTEXT_STRENGTH_ENV, None)
+            else:
+                os.environ[CONTEXT_STRENGTH_ENV] = saved
+
+    def test_env_target_defaults_to_accompaniment_and_validates(self) -> None:
+        saved = os.environ.pop(CONTEXT_TARGET_ENV, None)
+        try:
+            self.assertEqual(context_gate_target_from_env(), "accompaniment")
+            os.environ[CONTEXT_TARGET_ENV] = "vocal"
+            self.assertEqual(context_gate_target_from_env(), "vocal")
+            os.environ[CONTEXT_TARGET_ENV] = "invalid"
+            with self.assertRaises(ValueError):
+                context_gate_target_from_env()
+        finally:
+            if saved is None:
+                os.environ.pop(CONTEXT_TARGET_ENV, None)
+            else:
+                os.environ[CONTEXT_TARGET_ENV] = saved
+
+    def test_context_mask_loader_uses_an_independent_npy(self) -> None:
+        fallback = self._mask([[1.0, 0.0, 0.0]])
+        src = torch.zeros(2, 3, 4)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "full_vocal.npy"
+            np.save(path, np.array([0.0, 0.5, 1.0], dtype=np.float32))
+            saved = os.environ.get(CONTEXT_MASK_NPY_ENV)
+            try:
+                os.environ[CONTEXT_MASK_NPY_ENV] = str(path)
+                loaded = load_context_gate_mask_from_env(src, fallback)
+                self.assertEqual(loaded.shape, (2, 3, 1))
+                torch.testing.assert_close(loaded[0], self._mask([[0.0, 0.5, 1.0]])[0])
+                self.assertTrue(torch.equal(loaded[0], loaded[1]))
+            finally:
+                if saved is None:
+                    os.environ.pop(CONTEXT_MASK_NPY_ENV, None)
+                else:
+                    os.environ[CONTEXT_MASK_NPY_ENV] = saved
+
+    def test_env_loader_rejects_a_malformed_context_strength(self) -> None:
+        """A bad strength fails at load time, not mid-sample."""
+        alignment = json.loads(ALIGNMENT_PATH.read_text(encoding="utf-8"))
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "alignment.json"
+            path.write_text(json.dumps(alignment), encoding="utf-8")
+            saved = {
+                key: os.environ.get(key)
+                for key in (MASK_PATH_ENV, MODE_ENV, VOCAL_CNS_ENV, CONTEXT_STRENGTH_ENV)
+            }
+            try:
+                os.environ[MASK_PATH_ENV] = str(path)
+                os.environ[MODE_ENV] = "both"
+                os.environ[VOCAL_CNS_ENV] = "0.6"
+                os.environ[CONTEXT_STRENGTH_ENV] = "-0.5"
+                with self.assertRaises(ValueError):
+                    load_vocal_schedule_from_env(
+                        torch.zeros(1, 3000, 32),
+                        valid_timesteps=[1.0, 0.875, 0.75],
+                        global_timestep=1.0,
+                    )
+            finally:
+                for key, value in saved.items():
+                    if value is None:
+                        os.environ.pop(key, None)
+                    else:
+                        os.environ[key] = value
+
+
+class AnchorStrengthTest(unittest.TestCase):
+    """Continuous vocal anchoring, instead of the hard clamp."""
+
+    def test_strength_one_reproduces_the_hard_clamp(self) -> None:
+        """The historical behaviour must stay bit-identical at strength 1.0."""
+        xt = torch.randn(1, 4, 3)
+        src = torch.randn(1, 4, 3)
+        noise = torch.randn(1, 4, 3)
+        mask = torch.tensor([[0.0], [1.0], [1.0], [0.0]]).view(1, 4, 1)
+        blended = inject_source_path(xt, src, noise, mask, 0.5, strength=1.0)
+        expected = torch.lerp(xt, source_path_at(src, noise, 0.5), mask)
+        self.assertTrue(torch.equal(blended, expected))
+
+    def test_zero_strength_is_an_exact_no_op(self) -> None:
+        xt = torch.randn(1, 4, 3)
+        out = inject_source_path(
+            xt, torch.randn(1, 4, 3), torch.randn(1, 4, 3),
+            torch.ones(1, 4, 1), 0.5, strength=0.0,
+        )
+        self.assertTrue(torch.equal(out, xt))
+
+    def test_half_strength_keeps_half_of_the_generated_frame(self) -> None:
+        """A vocal frame lands halfway between generated and source path."""
+        xt = torch.zeros(1, 1, 1)
+        src = torch.ones(1, 1, 1)
+        noise = torch.zeros(1, 1, 1)
+        mask = torch.ones(1, 1, 1)
+        # source_path_at at t=0.5 is 0.5*0 + 0.5*1 = 0.5
+        out = inject_source_path(xt, src, noise, mask, 0.5, strength=0.5)
+        self.assertAlmostEqual(out.item(), 0.25, places=6)
+
+    def test_accompaniment_frames_are_never_touched(self) -> None:
+        xt = torch.randn(1, 3, 2)
+        mask = torch.tensor([[0.0], [1.0], [0.0]]).view(1, 3, 1)
+        out = inject_source_path(
+            xt, torch.randn(1, 3, 2), torch.randn(1, 3, 2), mask, 0.5, strength=0.5
+        )
+        self.assertTrue(torch.equal(out[0, 0], xt[0, 0]))
+        self.assertTrue(torch.equal(out[0, 2], xt[0, 2]))
+
+    def test_env_defaults_to_the_hard_clamp_and_validates(self) -> None:
+        saved = os.environ.pop(ANCHOR_STRENGTH_ENV, None)
+        try:
+            self.assertEqual(anchor_strength_from_env(), 1.0)
+            os.environ[ANCHOR_STRENGTH_ENV] = "0.4"
+            self.assertAlmostEqual(anchor_strength_from_env(), 0.4)
+            os.environ[ANCHOR_STRENGTH_ENV] = "2.0"
+            with self.assertRaises(ValueError):
+                anchor_strength_from_env()
+        finally:
+            if saved is None:
+                os.environ.pop(ANCHOR_STRENGTH_ENV, None)
+            else:
+                os.environ[ANCHOR_STRENGTH_ENV] = saved
+
+    def test_spec_defaults_to_full_anchor(self) -> None:
+        spec = _spec(torch.ones(1, 3, 1), 0.5, "both")
+        self.assertEqual(spec.anchor_strength, 1.0)
 
 
 if __name__ == "__main__":

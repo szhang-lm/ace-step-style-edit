@@ -56,9 +56,14 @@ ONSET_FRACTION_ENV = "ACESTEP_VOCAL_ONSET_FRACTION"
 ONSET_SECONDS_ENV = "ACESTEP_VOCAL_ONSET_SECONDS"
 MASK_NPY_ENV = "ACESTEP_VOCAL_MASK_NPY"
 GLOBAL_T_ENV = "ACESTEP_VOCAL_GLOBAL_T"
+CONTEXT_STRENGTH_ENV = "ACESTEP_VOCAL_CONTEXT_STRENGTH"
+CONTEXT_MASK_NPY_ENV = "ACESTEP_VOCAL_CONTEXT_MASK_NPY"
+CONTEXT_TARGET_ENV = "ACESTEP_VOCAL_CONTEXT_TARGET"
+ANCHOR_STRENGTH_ENV = "ACESTEP_VOCAL_ANCHOR_STRENGTH"
 
 VALID_MODES = ("none", "init", "inject", "both")
 VALID_GRANULARITIES = ("line", "token")
+VALID_CONTEXT_TARGETS = ("accompaniment", "vocal")
 
 
 @dataclass(frozen=True)
@@ -73,6 +78,10 @@ class VocalProtectionSpec:
     mask_path: Path
     vocal_cns: float
     fade_seconds: float
+    # How strongly the source path claims a vocal frame: 1.0 is the hard clamp
+    # used by the early arms, 0.0 leaves the frame entirely to the model.  The
+    # default keeps every existing caller bit-identical.
+    anchor_strength: float = 1.0
 
     @property
     def protects_init(self) -> bool:
@@ -88,6 +97,150 @@ class VocalProtectionSpec:
         if self.mode == "init":
             return step_idx < self.init_steps
         return False
+
+    def context_gate(
+        self,
+        strength: float,
+        *,
+        mask: Optional[torch.Tensor] = None,
+        target: str = "accompaniment",
+    ) -> torch.Tensor:
+        """Per-frame multiplier for the source block of ``context_latents``.
+
+        The cover branch feeds the source's own latents into the DiT by concatenation
+        (``context_latents = cat([src, chunk_masks])``), so a frame-level
+        multiplier on that block decides how much source information the
+        model is *allowed to read* per frame, as opposed to the noise
+        schedule, which decides how far that frame is allowed to drift from
+        the source trajectory.
+
+        ``target="accompaniment"`` preserves the existing gate semantics:
+        vocal frames retain the source block and accompaniment frames are
+        attenuated.  ``target="vocal"`` does the inverse, allowing the vocal
+        performance to move while a separate onset mask protects the lyric
+        trajectory.  ``mask`` may therefore differ from ``self.mask``.
+        """
+        strength = float(strength)
+        if not 0.0 <= strength <= 1.0:
+            raise ValueError(f"{CONTEXT_STRENGTH_ENV} must be in [0, 1], got {strength}")
+        if target not in VALID_CONTEXT_TARGETS:
+            raise ValueError(
+                f"{CONTEXT_TARGET_ENV} must be one of {VALID_CONTEXT_TARGETS}, got {target!r}"
+            )
+        context_mask = self.mask if mask is None else mask
+        if strength == 0.0:
+            return torch.ones_like(context_mask)
+        context_mask = context_mask.clamp(0.0, 1.0)
+        target_mask = 1.0 - context_mask if target == "accompaniment" else context_mask
+        return 1.0 - strength * target_mask
+
+
+def context_gate_strength_from_env() -> float:
+    """Read ``ACESTEP_VOCAL_CONTEXT_STRENGTH``; unset or empty means no gating."""
+    raw = os.environ.get(CONTEXT_STRENGTH_ENV, "").strip()
+    if not raw:
+        return 0.0
+    strength = float(raw)
+    if not 0.0 <= strength <= 1.0:
+        raise ValueError(f"{CONTEXT_STRENGTH_ENV} must be in [0, 1], got {strength}")
+    return strength
+
+
+def context_gate_target_from_env() -> str:
+    """Read which region of the source context should be attenuated."""
+    target = os.environ.get(CONTEXT_TARGET_ENV, "accompaniment").strip().lower()
+    target = target or "accompaniment"
+    if target not in VALID_CONTEXT_TARGETS:
+        raise ValueError(
+            f"{CONTEXT_TARGET_ENV} must be one of {VALID_CONTEXT_TARGETS}, got {target!r}"
+        )
+    return target
+
+
+def _load_precomputed_mask(
+    raw_path: str,
+    src_latents: torch.Tensor,
+    *,
+    description: str,
+) -> torch.Tensor:
+    """Load and batch-expand a one-dimensional per-frame NumPy mask."""
+    import numpy as np
+
+    path = Path(raw_path).expanduser()
+    if not path.is_file():
+        raise FileNotFoundError(f"{description} not found: {path}")
+    values = np.load(path).astype("float32").reshape(-1)
+    num_frames = src_latents.shape[1]
+    if values.size != num_frames:
+        raise ValueError(
+            f"{description} has {values.size} frames but the latents have "
+            f"{num_frames}; regenerate it for this audio length."
+        )
+    mask = torch.from_numpy(values).to(
+        device=src_latents.device, dtype=src_latents.dtype
+    ).view(1, num_frames, 1)
+    return mask.expand(src_latents.shape[0], -1, -1).contiguous()
+
+
+def load_context_gate_mask_from_env(
+    src_latents: torch.Tensor,
+    fallback_mask: torch.Tensor,
+) -> torch.Tensor:
+    """Load an optional context-only mask, falling back to the noise mask."""
+    raw_path = os.environ.get(CONTEXT_MASK_NPY_ENV, "").strip()
+    if not raw_path:
+        return fallback_mask
+    return _load_precomputed_mask(
+        raw_path,
+        src_latents,
+        description="Precomputed vocal context mask",
+    )
+
+
+def anchor_strength_from_env() -> float:
+    """Read ``ACESTEP_VOCAL_ANCHOR_STRENGTH``; unset means the full hard clamp.
+
+    1.0 keeps the historical behaviour (the vocal frame is written onto the
+    source path).  Lower values let the frame keep part of its own generated
+    value, which is what allows the *performance* to move while the frame is
+    still anchored.
+    """
+    raw = os.environ.get(ANCHOR_STRENGTH_ENV, "").strip()
+    if not raw:
+        return 1.0
+    strength = float(raw)
+    if not 0.0 <= strength <= 1.0:
+        raise ValueError(f"{ANCHOR_STRENGTH_ENV} must be in [0, 1], got {strength}")
+    return strength
+
+
+def apply_source_context_gate(
+    context_latents: torch.Tensor,
+    gate: Optional[torch.Tensor],
+    source_channels: int,
+) -> torch.Tensor:
+    """Scale the source block of ``context_latents`` by a per-frame ``gate``.
+
+    ``context_latents`` is ``cat([src_latents, chunk_masks], dim=-1)`` on the
+    channel axis, but the two blocks are *not* equal in width -- the source
+    block carries the full latent width (128) while ``chunk_masks`` adds one
+    channel per mask.  The boundary therefore has to be passed in by the
+    caller, which knows both widths, rather than inferred by halving.
+
+    Only the source block is scaled: ``chunk_masks`` marks region validity,
+    and zeroing a validity flag would tell the model that a frame does not
+    exist rather than that it carries no source information.
+    """
+    if gate is None:
+        return context_latents
+    if not 0 < source_channels < context_latents.shape[-1]:
+        raise ValueError(
+            "source_channels must split context_latents, got "
+            f"{source_channels} of {context_latents.shape[-1]}"
+        )
+    source = context_latents[..., :source_channels]
+    validity = context_latents[..., source_channels:]
+    return torch.cat([source * gate.to(source.dtype), validity], dim=-1)
 
 
 def _clean_interval(start: float, end: float, *, max_duration: float) -> Tuple[float, float]:
@@ -497,22 +650,11 @@ def load_vocal_schedule_from_env(
         frame_energy = src_latents.detach().float().abs().mean(dim=-1)[0].cpu().numpy()
 
     if raw_npy:
-        import numpy as np
-
-        npy_path = Path(raw_npy).expanduser()
-        if not npy_path.is_file():
-            raise FileNotFoundError(f"Precomputed vocal mask not found: {npy_path}")
-        values = np.load(npy_path).astype("float32").reshape(-1)
-        num_frames = src_latents.shape[1]
-        if values.size != num_frames:
-            raise ValueError(
-                f"Precomputed mask has {values.size} frames but the latents have "
-                f"{num_frames}; regenerate it for this audio length."
-            )
-        mask = torch.from_numpy(values).to(
-            device=src_latents.device, dtype=src_latents.dtype
-        ).view(1, num_frames, 1)
-        mask = mask.expand(src_latents.shape[0], -1, -1).contiguous()
+        mask = _load_precomputed_mask(
+            raw_npy,
+            src_latents,
+            description="Precomputed vocal mask",
+        )
     else:
         if path is None:
             raise ValueError(
@@ -549,6 +691,10 @@ def load_vocal_schedule_from_env(
             "less-noisy region."
         )
 
+    # Fail on a malformed context-gate strength here rather than mid-sample.
+    context_gate_strength_from_env()
+    context_gate_target_from_env()
+
     return VocalProtectionSpec(
         mask=mask,
         vocal_timestep=vocal_timestep,
@@ -558,8 +704,8 @@ def load_vocal_schedule_from_env(
         mask_path=path,
         vocal_cns=vocal_cns,
         fade_seconds=fade_seconds,
+        anchor_strength=anchor_strength_from_env(),
     )
-
 
 def source_path_at(
     src_latents: torch.Tensor,
@@ -576,9 +722,26 @@ def inject_source_path(
     noise: torch.Tensor,
     vocal_mask: torch.Tensor,
     timestep: float,
+    strength: float = 1.0,
 ) -> torch.Tensor:
-    """Blend vocal frames onto the source's matched forward-noise path."""
-    return torch.lerp(xt, source_path_at(src_latents, noise, timestep), vocal_mask)
+    """Blend vocal frames towards the source's matched forward-noise path.
+
+    ``strength`` is a continuous anchor weight rather than a switch:
+
+    * ``1.0`` replaces the vocal frames with the source path (the hard clamp the
+      earlier arms used),
+    * ``0.0`` leaves ``xt`` untouched,
+    * in between the frame keeps ``1 - strength`` of its own generated value and
+      takes ``strength`` of the source path.
+
+    The middle of that range is what "reduce how strongly the source vocal is
+    fed back in" means concretely: the source supplies an anchor without owning
+    the frame, so the performance can still move.
+    """
+    if strength <= 0.0:
+        return xt
+    blend = vocal_mask * strength
+    return torch.lerp(xt, source_path_at(src_latents, noise, timestep), blend)
 
 
 def prepare_nonuniform_start(
@@ -589,14 +752,19 @@ def prepare_nonuniform_start(
 ) -> torch.Tensor:
     """Build the non-uniform starting latent for a cover run.
 
-    Accompaniment frames start at ``global_timestep``; vocal frames start at the
-    lower ``spec.vocal_timestep`` and are therefore renoised from the source at
-    that level.  With ``spec.mode == "none"`` this reduces exactly to
-    ``renoise(src_latents, global_timestep, noise)``.
+    Accompaniment frames start at ``global_timestep``; vocal frames start part
+    way towards the lower ``spec.vocal_timestep`` as weighted by
+    ``spec.anchor_strength``.  With ``spec.mode == "none"`` this reduces exactly
+    to ``renoise(src_latents, global_timestep, noise)``.
     """
     xt = source_path_at(src_latents, noise, global_timestep)
     if spec.mode == "none":
         return xt
     return inject_source_path(
-        xt, src_latents, noise, spec.mask, spec.vocal_timestep
+        xt,
+        src_latents,
+        noise,
+        spec.mask,
+        spec.vocal_timestep,
+        strength=spec.anchor_strength,
     )

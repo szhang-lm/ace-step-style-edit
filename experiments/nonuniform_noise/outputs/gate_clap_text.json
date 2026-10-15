@@ -1,0 +1,111 @@
+{
+  "prompts": {
+    "jazz": "smooth jazz with upright piano, brushed drums and double bass",
+    "rock": "rock music with distorted electric guitar and heavy drums",
+    "percussion": "loud percussion and drum solo, cymbals and tom toms",
+    "ballad": "quiet slow ballad, soft piano and strings",
+    "electronic": "electronic dance music with synthesizer and drum machine"
+  },
+  "rows": [
+    {
+      "arm": "00_SOURCE",
+      "wav": "/Users/kkszhang/project/\u6bd5\u8bbe/experiments/cover_test_kit/sources/chinese_female_120s.wav",
+      "all": {
+        "jazz": 0.36867934465408325,
+        "rock": 0.24398335814476013,
+        "percussion": 0.15822556614875793,
+        "ballad": 0.49075496196746826,
+        "electronic": 0.29226458072662354
+      },
+      "vocal": {
+        "jazz": 0.029507409781217575,
+        "rock": -0.16270948946475983,
+        "percussion": 0.022471830248832703,
+        "ballad": 0.020066551864147186,
+        "electronic": 0.3231128752231598
+      },
+      "bg": {
+        "jazz": 0.141721710562706,
+        "rock": 0.15890195965766907,
+        "percussion": 0.15144014358520508,
+        "ballad": 0.04556649550795555,
+        "electronic": 0.40108346939086914
+      }
+    },
+    {
+      "arm": "g0_off",
+      "wav": "/Users/kkszhang/project/\u6bd5\u8bbe/experiments/nonuniform_noise/outputs/context_gate/g0_off/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+      "all": {
+        "jazz": 0.34066081047058105,
+        "rock": 0.22701162099838257,
+        "percussion": 0.18358966708183289,
+        "ballad": 0.29033124446868896,
+        "electronic": 0.32058191299438477
+      },
+      "vocal": {
+        "jazz": 0.14441266655921936,
+        "rock": 0.0066542234271764755,
+        "percussion": 0.09138336777687073,
+        "ballad": 0.0652032345533371,
+        "electronic": 0.3778114914894104
+      },
+      "bg": {
+        "jazz": 0.11379089206457138,
+        "rock": 0.05278591066598892,
+        "percussion": 0.19949647784233093,
+        "ballad": -0.06772392988204956,
+        "electronic": 0.3987712860107422
+      }
+    },
+    {
+      "arm": "g1_full",
+      "wav": "/Users/kkszhang/project/\u6bd5\u8bbe/experiments/nonuniform_noise/outputs/context_gate/g1_full/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+      "all": {
+        "jazz": 0.40018177032470703,
+        "rock": 0.4257972240447998,
+        "percussion": 0.2821594774723053,
+        "ballad": 0.2605717182159424,
+        "electronic": 0.36730605363845825
+      },
+      "vocal": {
+        "jazz": -0.02156480774283409,
+        "rock": -0.2009918987751007,
+        "percussion": -0.09960547089576721,
+        "ballad": -0.029238775372505188,
+        "electronic": 0.12363585084676743
+      },
+      "bg": {
+        "jazz": -0.1730538010597229,
+        "rock": -0.07848645746707916,
+        "percussion": -0.006906906142830849,
+        "ballad": -0.26396507024765015,
+        "electronic": 0.014068877324461937
+      }
+    },
+    {
+      "arm": "g5_half",
+      "wav": "/Users/kkszhang/project/\u6bd5\u8bbe/experiments/nonuniform_noise/outputs/context_gate/g5_half/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+      "all": {
+        "jazz": 0.40366512537002563,
+        "rock": 0.32372739911079407,
+        "percussion": 0.2918342649936676,
+        "ballad": 0.27305376529693604,
+        "electronic": 0.3746703863143921
+      },
+      "vocal": {
+        "jazz": 0.13220098614692688,
+        "rock": 0.022061053663492203,
+        "percussion": 0.09304715692996979,
+        "ballad": 0.011289367452263832,
+        "electronic": 0.2508365511894226
+      },
+      "bg": {
+        "jazz": 0.06994190067052841,
+        "rock": -0.11449144035577774,
+        "percussion": 0.07358613610267639,
+        "ballad": 0.040165975689888,
+        "electronic": 0.24114778637886047
+      }
+    }
+  ]
+}

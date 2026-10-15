@@ -1,0 +1,41 @@
+{
+  "prompts": {
+    "pop_funk": "upbeat pop funk with acoustic guitar and clean male vocals",
+    "rock_metal": "aggressive alternative metal and rap rock with distorted electric guitars, heavy drums and forceful male vocals",
+    "jazz": "smooth vocal jazz with piano, upright bass and brushed drums"
+  },
+  "rows": [
+    {
+      "name": "source",
+      "path": "experiments/data/covers80_probe/faith/source.wav",
+      "style_scores": {
+        "pop_funk": 0.5603808760643005,
+        "rock_metal": 0.36431995034217834,
+        "jazz": 0.395293653011322
+      }
+    },
+    {
+      "name": "real_cover",
+      "path": "experiments/data/covers80_probe/faith/cover.wav",
+      "style_scores": {
+        "pop_funk": 0.20599785447120667,
+        "rock_metal": 0.4228765070438385,
+        "jazz": 0.11722448468208313
+      }
+    },
+    {
+      "name": "generated",
+      "path": "experiments/data/covers80_probe/faith/rock_probe/50efcb7c-3fd5-d37e-d569-2b6e59c0c99c.wav",
+      "style_scores": {
+        "pop_funk": 0.5303846597671509,
+        "rock_metal": 0.6190174221992493,
+        "jazz": 0.3669320344924927
+      }
+    }
+  ],
+  "audio_similarities": {
+    "source_to_real_cover": 0.5388894081115723,
+    "source_to_generated": 0.6567513346672058,
+    "generated_to_real_cover": 0.4791853427886963
+  }
+}

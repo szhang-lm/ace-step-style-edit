@@ -1,0 +1,62 @@
+[
+  {
+    "arm": "acs100",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/acs_sweep/acs100/785f7708-29da-17f0-dcff-b3d52d6bc2e8.wav",
+    "corr_vocal": 0.12280557782453691,
+    "corr_bg": 0.08273471500343631,
+    "nmse_vocal_db": 2.280035627090326,
+    "nmse_bg_db": 4.611036340051426,
+    "hf_vocal": 0.0065691487981596785,
+    "hf_bg": 0.006039233831531649,
+    "coverage": 0.9090909090909091,
+    "asr_head": "让这感慨走过深海，每一句话不会被掩埋。我们时间把故事怎样更改"
+  },
+  {
+    "arm": "acs090",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/acs_sweep/acs090/408a2594-8a4b-33ef-077e-253971bb14aa.wav",
+    "corr_vocal": 0.11634387025912356,
+    "corr_bg": 0.07249336214777938,
+    "nmse_vocal_db": 2.3078050089742606,
+    "nmse_bg_db": 4.80321182410953,
+    "hf_vocal": 0.006089581049486193,
+    "hf_bg": 0.005356432993679862,
+    "coverage": 0.8666666666666667,
+    "asr_head": "让车开，走过深海，每一句歌不会被掩埋。我们时间把故事怎样更改"
+  },
+  {
+    "arm": "acs070",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/acs_sweep/acs070/1259767b-bdd0-ad23-5e21-c2a6a24de11a.wav",
+    "corr_vocal": 0.11237158597196625,
+    "corr_bg": 0.06289992357371764,
+    "nmse_vocal_db": 2.4785974775226367,
+    "nmse_bg_db": 5.001451682194036,
+    "hf_vocal": 0.006271897078242668,
+    "hf_bg": 0.005163091800908466,
+    "coverage": 0.9151515151515152,
+    "asr_head": "让这歌陪走过深海，每一句话不会被掩埋。我们时间把故事怎样更改"
+  },
+  {
+    "arm": "acs050",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/acs_sweep/acs050/cd29ae27-5c62-a84c-7d86-6a6b41fcc7dc.wav",
+    "corr_vocal": 0.1176459982558452,
+    "corr_bg": 0.07180731747067844,
+    "nmse_vocal_db": 2.1112665163902973,
+    "nmse_bg_db": 4.549398557967141,
+    "hf_vocal": 0.00628439888350088,
+    "hf_bg": 0.005711493708823494,
+    "coverage": 0.8848484848484849,
+    "asr_head": "让车开，走过深海，每一句话不会被掩埋。我们时间把故事怎样更改"
+  },
+  {
+    "arm": "a075",
+    "wav": "/Users/kkszhang/project/毕设/experiments/nonuniform_noise/outputs/anchor_sweep/a075/e9af9cc1-1d19-a2ce-2863-ca952dc8f762.wav",
+    "corr_vocal": 0.12289819710440818,
+    "corr_bg": 0.07311699964849881,
+    "nmse_vocal_db": 1.9175611833749275,
+    "nmse_bg_db": 4.417350365156756,
+    "hf_vocal": 0.005621706488271345,
+    "hf_bg": 0.0042019237612318195,
+    "coverage": 0.9090909090909091,
+    "asr_head": "让这首歌陪我走过深海，每句话都不会被掩埋。我们时间把故事怎样"
+  }
+]
